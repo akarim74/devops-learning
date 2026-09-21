@@ -278,7 +278,7 @@ strings data.txt | grep "=="
 
 **Password:** `B0s2khmbT9u0geKuOoVGW3JZKhndE3BG`
 
-**What I learned:** `strings` is useful for finding readable text hidden inside files that otherwise contain binary or non-readable data. To add a personal reflection, this was one of those levels where the solution was a lot simpler than expected. It taught me that finding a solution that works doesn't have to be complicated - rather, it just needs to work. It's the difference between "appearing intellgient" and being "effective".
+**What I learned:** `strings` is useful for finding readable text hidden inside files that otherwise contain binary or non-readable data. To add a personal reflection, this was one of those levels where the solution was a lot simpler than expected. It taught me that finding a solution that works doesn't have to be complicated - rather, it just needs to work. It's the difference between "appearing intelligent" and being "effective".
 
 ---
 
