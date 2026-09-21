@@ -170,7 +170,8 @@ The `c` suffix means bytes.
 
 **Password:** `pXa26xhMWaC2SvDotA4r9EgZkulOeSBW`
 
-**What I learned:** `find` is extremely powerful because multiple conditions can be combined to narrow down a search. Reflecting on this level, the challenge was extremely useful, as I researched the various use cases of the `find` command and that immediately benefited me in the later levels. Please refer back to the above explanation for more info on this.
+**What I learned:** `find` is extremely powerful because multiple conditions can be combined to narrow down a search.
+Reflecting on this level, the challenge was extremely useful, as I researched the various use cases of the `find` command and that immediately benefited me in the later levels. Please refer back to the above explanation to understand some of these use cases.
 
 ---
 
@@ -278,7 +279,9 @@ strings data.txt | grep "=="
 
 **Password:** `B0s2khmbT9u0geKuOoVGW3JZKhndE3BG`
 
-**What I learned:** `strings` is useful for finding readable text hidden inside files that otherwise contain binary or non-readable data. To add a personal reflection, this was one of those levels where the solution was a lot simpler than expected. It taught me that finding a solution that works doesn't have to be complicated - rather, it just needs to work. It's the difference between "appearing intelligent" and being "effective".
+**What I learned:** `strings` is useful for finding readable text hidden inside files that otherwise contain binary or non-readable data. To add a personal reflection, this was one of those levels where the solution was a lot simpler than expected. 
+It taught me that finding a solution that works doesn't have to be complicated - rather, it just needs to work. 
+It's the difference between "appearing intelligent" and being "effective".
 
 ---
 
@@ -365,7 +368,9 @@ After each layer is removed, run `file` again to determine what the new file act
 
 **Password:** `qQYQiHOBPR8zR61qxYqX45quvihF2uzk`
 
-**What I learned:** When dealing with multiple layers of compressed data, I should not guess based on the filename. I can repeatedly use `file` to identify the current format and then use the appropriate extraction or decompression command. It also taught me what a hexdump is. To add another personal reflection - this was the task that made me appreciate the importance of automation. The amount of times I had to repeat the above commands, it became clear to me that a simple script could've given me the password in seconds.
+**What I learned:** When dealing with multiple layers of compressed data, I should not guess based on the filename. I can repeatedly use `file` to identify the current format and then use the appropriate extraction or decompression command. It also taught me what a hexdump is. 
+To add another personal reflection - this was the task that made me appreciate the importance of automation. 
+The amount of times I had to repeat the above commands, it became clear to me that a simple script could've given me the password in seconds.
 
 ---
 
@@ -411,7 +416,9 @@ ssh -p 2220 -i /home/akguest/.ssh/copyprivate_key bandit14@bandit.labs.overthewi
 
 **Password:** SSH private key used for authentication.
 
-**What I learned:** SSH does not always require password authentication. Private keys can be used instead, but the key must be stored securely with appropriately restrictive permissions. Adding in another personal reflection - this was the challenge I enjoyed the most because it significantly improved my problem-solving and troubleshooting skills. Previous challenges had accustomed me to searching for a password, whereas this task required me to find something unfamiliar - therefore I had to think differently. It forced me to break the solution down into individual steps and understand how each one connected to the next. Working through that analytical process and eventually reaching the solution was extremely satisfying and rewarding.
+**What I learned:** SSH does not always require password authentication. Private keys can be used instead, but the key must be stored securely with appropriately restrictive permissions. 
+Adding in another personal reflection - this was the challenge I enjoyed the most because it significantly improved my problem-solving and troubleshooting skills. Previous challenges had accustomed me to searching for a password, whereas this task required me to find something unfamiliar - therefore I had to think differently. 
+It forced me to break the solution down into individual steps and understand how each one connected to the next. Working through that analytical process and eventually reaching the solution was extremely satisfying and rewarding.
 
 ---
 
