@@ -411,7 +411,7 @@ ssh -p 2220 -i /home/akguest/.ssh/copyprivate_key bandit14@bandit.labs.overthewi
 
 **Password:** SSH private key used for authentication.
 
-**What I learned:** SSH does not always require password authentication. Private keys can be used instead, but the key must be stored securely with appropriately restrictive permissions. Adding in another personal reflection - this was the challenge I enjoyed the most because it significantly improved my problem-solving and troubleshooting skills. Previous challenges had accustomed me to searching for a password, whereas this task required me to find and work with something unfamiliar. It forced me to break the problem down into individual steps and understand how each one connected to the next. Working through that process and eventually reaching the solution was extremely satisfying and rewarding.
+**What I learned:** SSH does not always require password authentication. Private keys can be used instead, but the key must be stored securely with appropriately restrictive permissions. Adding in another personal reflection - this was the challenge I enjoyed the most because it significantly improved my problem-solving and troubleshooting skills. Previous challenges had accustomed me to searching for a password, whereas this task required me to find something unfamiliar - therefore I had to think differently. It forced me to break the solution down into individual steps and understand how each one connected to the next. Working through that analytical process and eventually reaching the solution was extremely satisfying and rewarding.
 
 ---
 
