@@ -43,7 +43,7 @@ fi
 
 ## Understanding User Input
 
-One of the first concepts I needed to understand was the difference between **positional parameters** and interactive user input.
+An important concept to understand was the difference between **positional parameters** and interactive user input.
 
 Positional parameters such as:
 
@@ -413,6 +413,35 @@ The permission checks are only performed if this condition succeeds.
 
 ---
 
+## Useful File Test Operators
+
+Bash provides several operators for checking filesystem objects:
+
+| Operator | Meaning |
+|---|---|
+| `-e` | Path exists |
+| `-f` | Path exists and is a regular file |
+| `-d` | Path exists and is a directory |
+| `-r` | Path is readable |
+| `-w` | Path is writable |
+| `-x` | Path is executable |
+| `-s` | File exists and has a size greater than zero |
+| `-L` | Path is a symbolic link |
+
+These tests operate on the **specific path supplied**.
+
+For example:
+
+```bash
+[[ -f "$filename" ]]
+```
+
+does not search the filesystem for the filename.
+
+It checks whether the exact path represented by `$filename` is a regular file.
+
+---
+
 ## Independent vs Dependent Conditions
 
 This challenge helped clarify an important difference between `elif` and separate `if` statements.
@@ -480,35 +509,6 @@ Does the file exist?
 ```
 
 This allows the three permission tests to be independent of each other while still being dependent on the original file existence check.
-
----
-
-## Useful File Test Operators
-
-Bash provides several operators for checking filesystem objects:
-
-| Operator | Meaning |
-|---|---|
-| `-e` | Path exists |
-| `-f` | Path exists and is a regular file |
-| `-d` | Path exists and is a directory |
-| `-r` | Path is readable |
-| `-w` | Path is writable |
-| `-x` | Path is executable |
-| `-s` | File exists and has a size greater than zero |
-| `-L` | Path is a symbolic link |
-
-These tests operate on the **specific path supplied**.
-
-For example:
-
-```bash
-[[ -f "$filename" ]]
-```
-
-does not search the filesystem for the filename.
-
-It checks whether the exact path represented by `$filename` is a regular file.
 
 ---
 
@@ -675,7 +675,7 @@ timestamp=$(date +"%Y-%m-%d_%H-%M")
 
 ## Debugging the `date` Command
 
-One issue I encountered was writing:
+A syntax issue you could possibly encounter:
 
 ```bash
 date + "%Y-%m-%d_%H-%M"
@@ -697,13 +697,13 @@ date +"%Y-%m-%d_%H-%M"
 
 Because the original command failed, `$timestamp` was empty and the backup directory was created without the expected timestamp.
 
-This reinforced the importance of reading terminal error messages carefully. A very small syntax difference can completely change how a command is interpreted.
+This shows the importance of reading terminal error messages carefully. A very small syntax difference can completely change how a command is interpreted.
 
 ---
 
 ## Creating a Reusable Backup Name
 
-Rather than repeatedly constructing the complete backup directory name throughout the script, I stored it in a variable:
+Rather than repeatedly constructing the complete backup directory name throughout the script, you can store it in a variable:
 
 ```bash
 backup_dir="Backup_${directory}_${timestamp}"
@@ -738,7 +738,7 @@ mkdir "$backup_dir"
 
 This improves maintainability because the naming convention only needs to be defined in one place.
 
-If the naming convention changes later, I can modify:
+If the naming convention changes later, you can modify:
 
 ```bash
 backup_dir="Backup_${directory}_${timestamp}"
@@ -809,7 +809,7 @@ archer.txt mage.txt warrior.txt
 
 before `cp` executes.
 
-An important lesson here was understanding the effect of quoting.
+An important lesson I learned was understanding the effect of quoting.
 
 This:
 
@@ -994,7 +994,7 @@ The biggest lesson was that commands can be individually correct but still behav
 
 # Overall Lessons
 
-Completing these four challenges helped me move from running individual Linux commands to combining them into Bash scripts.
+Completing these four challenges perosnally helped me move from running individual Linux commands to combining them into Bash scripts.
 
 Several concepts repeatedly appeared across the challenges.
 
