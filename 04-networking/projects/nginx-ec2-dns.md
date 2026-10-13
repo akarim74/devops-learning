@@ -201,37 +201,15 @@ Using `nslookup` afterwards confirmed that the domain resolved correctly.
 
 Finally, testing the domain in a browser verified that both components worked together.
 
+
 ## Challenges and Troubleshooting
 
-### Challenge 1: Understanding DNS Record Configuration
+### Securing SSH Access
 
-Initially, I confused the hostname and destination IP address when configuring the A record.
+Initially, SSH access (port 22) was open to all IPv4 addresses (`0.0.0.0/0`), unnecessarily exposing the EC2 instance to connection attempts from the internet.
 
-**Resolution:**
+To improve security, I restricted SSH access to my public IP address using a `/32` CIDR range, while keeping HTTP (port 80) publicly accessible.
 
-I learnt that the hostname specifies the domain or subdomain, while the record's value specifies the destination IP address.
-
-### Challenge 2: Understanding DNS and HTTP Traffic
-
-Initially, I assumed that HTTP requests travelled through DNS servers because the domain's IP address was configured there.
-
-**Resolution:**
-
-I learnt that DNS resolves the hostname into an IP address, while HTTP handles communication between the browser and the web server.
-
-### Challenge 3: Securing SSH Access
-
-Initially, SSH was configured to accept connections from anywhere (`0.0.0.0/0`).
-
-**Resolution:**
-
-Updated the security group to restrict SSH access to my public IP using a `/32` CIDR range.
-
-This reduced unnecessary exposure while maintaining remote administration access.
-
-## Outcome
-
-Successfully deployed an NGINX web server on AWS EC2 and made it accessible using a custom domain name.
 
 Verified:
 
