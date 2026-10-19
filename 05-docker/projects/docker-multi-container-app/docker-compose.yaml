@@ -1,0 +1,28 @@
+  volumes:
+    redis-data: {}
+
+  services:
+    flask:
+      build:
+        context: .
+        dockerfile: flask-dockerfile
+      depends_on:
+        - redis
+      environment:
+        REDIS_HOST: redis
+        REDIS_PORT: "6379"
+    
+
+    nginx:
+      image: nginx:alpine
+      ports:
+        - "8080:80"
+      depends_on:
+        - flask
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+    redis:
+      build: .
+      volumes:
+        - redis-data:/data
