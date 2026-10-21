@@ -1,4 +1,4 @@
-# TrackCount — Docker Multi-Container Application
+# TrackCount - Docker Multi-Container Application
 
 ## 1. Project Overview
 
