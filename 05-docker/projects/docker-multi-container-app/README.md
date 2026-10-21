@@ -12,8 +12,6 @@ The application consists of three services:
 
 The project covers containerisation, Docker Compose, service discovery, persistent storage, environment variables, load balancing, and Jinja2-based frontend integration.
 
-**Pages:** [Home](http://localhost:8080/) · [About](http://localhost:8080/about) · [Count](http://localhost:8080/count)
-
 ### Demo video
 
 [▶ Watch the TrackCount demo](demo/TrackCount-Demo.mp4)
