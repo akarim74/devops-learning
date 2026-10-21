@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Redis Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Welcome to my Flask & Redis Application!</h1>
+    <p>A multi-container application powered by Docker, Flask, Redis and NGINX.</p>
+
+    <h2>Application Features</h2>
+    <ul>
+        <li>Docker containerisation</li>
+        <li>NGINX load balancing</li>
+        <li>Horizontal scaling with Flask replicas</li>
+        <li>Redis visit counter</li>
+    </ul>
+
+    <a href="/count">View Visit Counter</a>
+</body>
+</html>

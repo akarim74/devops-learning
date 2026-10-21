@@ -1,9 +1,7 @@
-from flask import Flask
+from flask import Flask, render_template
 import redis
 import os
-import socket
 
-# Retrieve environment variables
 redis_host = os.getenv("REDIS_HOST", "redis")
 redis_port = int(os.getenv("REDIS_PORT", "6379"))
 
@@ -17,11 +15,12 @@ db = redis.Redis(
     decode_responses=True
 )
 
-# Homepage - display the container hostname
+# Homepage - render HTML template
 @app.route('/')
 def hello_world():
-    return f"Welcome to my Flask and Redis application! Served by: {socket.gethostname()}"
-
+    return render_template('index.html')
+    #old code - return f"Welcome to my Flask and Redis application! Served by: {socket.gethostname()}"
+    
 # Visit counter
 @app.route('/count')
 def count():

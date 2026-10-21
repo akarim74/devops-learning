@@ -3,6 +3,8 @@ FROM python:3.14-slim
 WORKDIR /app
 
 COPY flask-app.py .
+COPY templates/ ./templates
+COPY static/css ./static/css
 
 RUN pip install flask redis
 
