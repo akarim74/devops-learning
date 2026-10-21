@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | TrackCount</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="navbar">
+            <a class="brand" href="{{ url_for('hello_world') }}">
+                <span class="brand-icon">▣</span> TrackCount
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="{{ url_for('hello_world') }}">Home</a>
+                <a href="/about" class="active">About</a>
+                <a href="{{ url_for('count') }}">Count</a>
+            </nav>
+            <span class="nav-status"><span class="status-dot"></span> System Online</span>
+        </header>
+
+        <main class="page-main">
+            <div class="page-intro">
+                <span class="eyebrow">BEHIND THE APPLICATION</span>
+                <h1>Built for <span class="gradient-text">DevOps</span></h1>
+                <p>TrackCount demonstrates container orchestration, reverse proxying, horizontal scaling and shared application state.</p>
+            </div>
+
+            <section class="panel architecture-panel">
+                <span class="panel-label">APPLICATION ARCHITECTURE</span>
+                <div class="architecture-flow">
+                    <div class="architecture-node">🌐 <strong>Browser</strong><small>Port 8080</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="architecture-node highlighted">⚡ <strong>NGINX</strong><small>Load Balancer</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="architecture-node">🐍 <strong>Flask × 3</strong><small>Replicas</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="architecture-node">◆ <strong>Redis</strong><small>Shared Counter</small></div>
+                </div>
+                <p class="architecture-note">Docker Compose connects all services through its internal network. Redis stores counter data using a persistent volume.</p>
+            </section>
+
+            <section class="features-section">
+                <h2>Technologies powering TrackCount</h2>
+                <div class="feature-grid">
+                    <article class="feature-card"><span class="feature-icon">▣</span><h3>Docker</h3><p>Packages the application and its dependencies into reproducible containers.</p></article>
+                    <article class="feature-card"><span class="feature-icon">⚙</span><h3>Docker Compose</h3><p>Defines and manages the multi-container application environment.</p></article>
+                    <article class="feature-card"><span class="feature-icon">🐍</span><h3>Flask</h3><p>Handles HTTP requests and communicates with Redis.</p></article>
+                    <article class="feature-card"><span class="feature-icon">◆</span><h3>Redis</h3><p>Maintains the shared visit counter across all application replicas.</p></article>
+                    <article class="feature-card"><span class="feature-icon">⇄</span><h3>NGINX</h3><p>Routes incoming requests and distributes them across Flask containers.</p></article>
+                    <article class="feature-card"><span class="feature-icon">↗</span><h3>Horizontal Scaling</h3><p>Runs three Flask replicas behind a single entry point.</p></article>
+                </div>
+            </section>
+
+            <div class="action-row">
+                <a href="{{ url_for('count') }}" class="btn btn-primary">Explore Live Counter →</a>
+                <a href="{{ url_for('hello_world') }}" class="btn btn-outline">Back to Home</a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <span>© TrackCount · DevOps Learning Project</span>
+            <span>Built with Flask, Redis, NGINX & Docker</span>
+        </footer>
+    </div>
+</body>
+</html>

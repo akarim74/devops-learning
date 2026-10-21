@@ -1,8 +1,8 @@
-# Docker Multi-Container Application
+# TrackCount — Docker Multi-Container Application
 
 ## 1. Project Overview
 
-This project demonstrates how to build and manage a multi-container application using Docker and Docker Compose.
+**TrackCount** is a three-page Flask web application that demonstrates how to build and manage a multi-container application using Docker and Docker Compose. Visitors can explore the architecture and increment a shared visit counter, while the Count page identifies the Flask container serving each request.
 
 The application consists of three services:
 
@@ -10,7 +10,15 @@ The application consists of three services:
 - **Redis** → A shared data store used to maintain a visit counter.
 - **NGINX** → A load balancer that distributes incoming requests across Flask containers.
 
-The project covers containerisation, Docker Compose, service discovery, persistent storage, environment variables, and load balancing.
+The project covers containerisation, Docker Compose, service discovery, persistent storage, environment variables, load balancing, and Jinja2-based frontend integration.
+
+**Pages:** [Home](http://localhost:8080/) · [About](http://localhost:8080/about) · [Count](http://localhost:8080/count)
+
+### Demo video
+
+[▶ Watch the TrackCount demo](demo/TrackCount-Demo.mp4)
+
+The demo walks through the Home, About and Count pages, showing the shared counter and responding Flask container hostname. The video is stored in the repository so the link works on GitHub after the files are pushed.
 
 ## 2. Application Architecture
 
@@ -494,7 +502,7 @@ All three Flask replicas continued using the same Redis service. The shared coun
 
 ### 3.7 Final Docker Compose Configuration
 
-The final Compose configuration brings together Flask, Redis, NGINX, environment variables, networking, and the Redis named volume.
+The final Compose configuration brings together Flask, Redis, NGINX, environment variables, networking, and the Redis named volume. The frontend was added after the infrastructure and scaling stages described above.
 
 **Final `docker-compose.yaml`**
 
@@ -534,7 +542,100 @@ Start the completed application with:
 sudo docker compose up --build -d --scale flask=3
 ```
 
-Access the homepage at `http://localhost:8080/` and the Redis counter at `http://localhost:8080/count`.
+Access the [homepage](http://localhost:8080/), [About page](http://localhost:8080/about), and [Count page](http://localhost:8080/count).
+
+### 3.8 TrackCount Frontend and Final Flask Application
+
+After validating the container architecture, I built the final TrackCount website with three Jinja2 templates and a shared stylesheet. This stage replaced the earlier plain-text Flask responses with a navigable dashboard-style interface.
+
+**Final application files**
+
+```text
+.
+├── Dockerfile                 # Redis image
+├── flask-dockerfile           # Flask image
+├── flask-app.py               # Flask routes and Redis client
+├── docker-compose.yaml       # Flask, NGINX and Redis services
+├── nginx.conf                 # Reverse proxy and dynamic upstream
+├── templates/
+│   ├── index.html             # Home page
+│   ├── about.html             # Architecture and technology overview
+│   └── count.html             # Shared visit counter and hostname
+├── static/
+│   └── css/
+│       └── style.css          # Shared site styling
+├── demo/
+│   └── TrackCount-Demo.mp4    # Recorded walkthrough
+└── README.md
+```
+
+**Final `flask-app.py`**
+
+```python
+from flask import Flask, render_template
+import redis
+import os
+import socket
+
+# Redis configuration using environment variables
+redis_host = os.getenv("REDIS_HOST", "redis")
+redis_port = int(os.getenv("REDIS_PORT", "6379"))
+
+# Initialise Flask and Redis
+app = Flask(__name__)
+db = redis.Redis(
+    host=redis_host,
+    port=redis_port,
+    decode_responses=True
+)
+
+# Homepage
+@app.route('/')
+def hello_world():
+    return render_template('index.html')
+
+# Visit counter
+@app.route('/count')
+def count():
+    visits = db.incr("visits")
+    return render_template(
+        'count.html',
+        visits=visits,
+        hostname=socket.gethostname()
+    )
+
+# About page
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# Start Flask application
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+
+**What changed**
+
+- `/` renders `index.html`, introducing TrackCount and the multi-container architecture.
+- `/about` renders `about.html`, explaining the application components.
+- `/count` calls `db.incr("visits")`, then passes the updated count and the responding container hostname to `count.html`.
+- `static/css/style.css` supplies consistent styling across all three pages.
+- `flask-dockerfile` now copies both `templates/` and `static/css/` into the Flask image:
+
+```dockerfile
+FROM python:3.14-slim
+WORKDIR /app
+COPY flask-app.py .
+COPY templates/ ./templates
+COPY static/css ./static/css
+RUN pip install flask redis
+EXPOSE 5000
+CMD ["python", "flask-app.py"]
+```
+
+**Key learning:** A Flask container can serve a styled, multi-page application while remaining stateless between requests. Redis maintains the shared visit counter, and NGINX can route successive requests to different Flask replicas.
+
+**Demo:** [Watch TrackCount in action](demo/TrackCount-Demo.mp4).
 
 ## 4. Testing and Validation
 
@@ -550,13 +651,13 @@ sudo docker compose ps
 
 ### 4.2 Application accessibility
 
-I opened `http://localhost:8080/` and received the Flask welcome message with a container hostname.
+I opened `http://localhost:8080/`, `http://localhost:8080/about`, and `http://localhost:8080/count` and verified that all three styled pages loaded through NGINX.
 
 **Result:** NGINX successfully forwarded HTTP requests to Flask.
 
 ### 4.3 Load balancing
 
-I refreshed the homepage repeatedly and observed different container hostnames in the responses.
+I refreshed the Count page repeatedly and observed different Flask container hostnames in the rendered responses. In the final UI, the hostname is displayed on the Count page rather than the homepage.
 
 **Result:** Requests were being handled by different Flask replicas.
 
@@ -596,6 +697,20 @@ I then revisited `http://localhost:8080/count`.
 
 **Result:** The counter continued from its previous value instead of resetting, demonstrating that Redis data was retained across this container recreation.
 
+### 4.7 Final frontend and restart verification
+
+The completed website was reviewed in a recorded walkthrough: [TrackCount demo](demo/TrackCount-Demo.mp4). The Count page showed successive counter values **36** and **37** while displaying different Flask container hostnames. In the later demo, the counter reached **60**.
+
+I also restarted Redis without removing its named volume:
+
+```bash
+sudo docker compose restart redis
+```
+
+After the restart, the Count page successfully rendered a counter value of **62**, consistent with the shared value being retained across the Redis restart. This restart test is separate from the earlier container-recreation test described in section 4.6.
+
+**Result:** The final three-page interface worked, different Flask replicas served Count requests, and the Redis counter remained available after restarting Redis.
+
 ### Testing Summary
 
 | Test | Result |
@@ -606,4 +721,6 @@ I then revisited `http://localhost:8080/count`.
 | Redis connectivity | Shared visit counter increments |
 | Environment variables | Redis host and port correctly configured |
 | Persistent storage | Counter retained after container recreation |
-
+| Redis restart | Counter continued after Redis restart (observed at 62) |
+| Final frontend | Home, About and Count pages rendered correctly |
+| Demo | Recorded walkthrough included in `demo/TrackCount-Demo.mp4` |

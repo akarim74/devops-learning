@@ -1,23 +1,72 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask & Redis Application</title>
+    <title>TrackCount | DevOps in Action</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Welcome to my Flask & Redis Application!</h1>
-    <p>A multi-container application powered by Docker, Flask, Redis and NGINX.</p>
+    <div class="site-shell">
+        <header class="navbar">
+            <a class="brand" href="{{ url_for('hello_world') }}">
+                <span class="brand-icon">▣</span> TrackCount
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="{{ url_for('hello_world') }}" class="active">Home</a>
+                <a href="/about">About</a>
+                <a href="{{ url_for('count') }}">Count</a>
+            </nav>
+            <span class="nav-status"><span class="status-dot"></span> System Online</span>
+        </header>
 
-    <h2>Application Features</h2>
-    <ul>
-        <li>Docker containerisation</li>
-        <li>NGINX load balancing</li>
-        <li>Horizontal scaling with Flask replicas</li>
-        <li>Redis visit counter</li>
-    </ul>
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="eyebrow">DOCKER · FLASK · REDIS · NGINX</span>
+                    <h1>DevOps in action.<br><span class="gradient-text">Every request counts.</span></h1>
+                    <p>TrackCount is a multi-container web application demonstrating load balancing, horizontal scaling and shared data — all working together in real time.</p>
+                    <div class="hero-actions">
+                        <a href="{{ url_for('count') }}" class="btn btn-primary">Explore Live Counter →</a>
+                        <a href="/about" class="btn btn-outline">How It Works</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-header"><span class="status-dot"></span> LIVE INFRASTRUCTURE <span class="visual-dots">● ● ●</span></div>
+                    <div class="visual-proxy">NGINX <small>Reverse Proxy & Load Balancer</small></div>
+                    <div class="visual-connector">↓ &nbsp; ↓ &nbsp; ↓</div>
+                    <div class="visual-replicas">
+                        <div>Flask 01</div><div>Flask 02</div><div>Flask 03</div>
+                    </div>
+                    <div class="visual-connector">↓</div>
+                    <div class="visual-redis">◆ Redis <small>Shared Counter</small></div>
+                </div>
+            </section>
 
-    <a href="/count">View Visit Counter</a>
+            <section class="features-section">
+                <div class="section-heading">
+                    <span class="eyebrow">THE TECHNOLOGY</span>
+                    <h2>Built to demonstrate real DevOps concepts</h2>
+                    <p>One small application, multiple infrastructure concepts working together.</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card"><span class="feature-icon">⇄</span><h3>Load Balancing</h3><p>NGINX distributes incoming requests across three Flask replicas.</p></article>
+                    <article class="feature-card"><span class="feature-icon">↗</span><h3>Horizontal Scaling</h3><p>Docker Compose runs multiple instances of the same Flask application.</p></article>
+                    <article class="feature-card"><span class="feature-icon">◆</span><h3>Shared State</h3><p>Redis keeps the visit counter consistent across all application replicas.</p></article>
+                </div>
+            </section>
+
+            <section class="home-cta">
+                <div><h2>See the infrastructure in action</h2><p>Refresh the counter and watch requests move between Flask containers.</p></div>
+                <a href="{{ url_for('count') }}" class="btn btn-primary">View Live Counter →</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <span>© TrackCount · DevOps Learning Project</span>
+            <span>Built with Flask, Redis, NGINX & Docker</span>
+        </footer>
+    </div>
 </body>
 </html>
