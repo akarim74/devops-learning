@@ -14,7 +14,7 @@ The project covers containerisation, Docker Compose, service discovery, persiste
 
 ### Demo video
 
-[▶ Watch the TrackCount demo](demo/TrackCount-Demo.mp4)
+[▶ Watch the TrackCount demo](https://github.com/user-attachments/assets/1355056b-3e23-42e2-92a5-ae51ec11960e)
 
 The demo walks through the Home, About and Count pages, showing the shared counter and responding Flask container hostname. The video is stored in the repository so the link works on GitHub after the files are pushed.
 
@@ -633,7 +633,7 @@ CMD ["python", "flask-app.py"]
 
 **Key learning:** A Flask container can serve a styled, multi-page application while remaining stateless between requests. Redis maintains the shared visit counter, and NGINX can route successive requests to different Flask replicas.
 
-**Demo:** [Watch TrackCount in action](demo/TrackCount-Demo.mp4).
+**Demo:** [Watch TrackCount in action](https://github.com/user-attachments/assets/1355056b-3e23-42e2-92a5-ae51ec11960e).
 
 ## 4. Testing and Validation
 
@@ -697,7 +697,7 @@ I then revisited `http://localhost:8080/count`.
 
 ### 4.7 Final frontend and restart verification
 
-The completed website was reviewed in a recorded walkthrough: [TrackCount demo](demo/TrackCount-Demo.mp4). The Count page showed successive counter values **36** and **37** while displaying different Flask container hostnames. In the later demo, the counter reached **60**.
+The completed website was reviewed in a recorded walkthrough: [TrackCount demo](https://github.com/user-attachments/assets/1355056b-3e23-42e2-92a5-ae51ec11960e). The Count page showed successive counter values **36** and **37** while displaying different Flask container hostnames. In the later demo, the counter reached **60**.
 
 I also restarted Redis without removing its named volume:
 
