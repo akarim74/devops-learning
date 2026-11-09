@@ -28,7 +28,7 @@ flowchart TB
 
 The application runs on **one EC2 instance in one Availability Zone**. This is a learning deployment, not a highly available production architecture.
 
-![AWS VPC resource map](screenshots/vpc-resource-map.png)
+![AWS VPC resource map](https://github.com/user-attachments/assets/9e851d0d-70e6-494e-84e0-49e93317dbc9)
 
 ## Technologies
 
@@ -104,15 +104,15 @@ Allow a few minutes for cloud-init to finish, then visit the URL and complete th
 
 Terraform successfully created **9 resources**, with **0 changed and 0 destroyed**, and returned the EC2 instance ID, public IP and WordPress URL.
 
-![Terraform apply succeeded and printed outputs](screenshots/terraform-apply.png)
+![Terraform apply succeeded and printed outputs](https://github.com/user-attachments/assets/77255d6b-9882-4ce5-a325-fb4ba11f9021)
 
 The EC2 instance was running in the WordPress VPC, with its instance checks passing.
 
-![EC2 instance running](screenshots/ec2-instance.png)
+![EC2 instance running](https://github.com/user-attachments/assets/27b9b6c1-9331-4e96-af7d-11fb6c539a2e)
 
 The security group permitted inbound HTTP on TCP port 80. The screenshot shows the inbound rule; outbound access is defined in `ec2.tf`.
 
-![Security group inbound HTTP rule](screenshots/security-group.png)
+![Security group inbound HTTP rule](https://github.com/user-attachments/assets/944fe977-6330-4b0c-a332-099b797212de)
 
 WordPress then loaded its installation wizard, administrator dashboard and public homepage, confirming the application was accessible after the Terraform refactor.
 
@@ -120,7 +120,7 @@ WordPress then loaded its installation wizard, administrator dashboard and publi
 
 ![WordPress administrator dashboard](screenshots/wordpress-dashboard.png)
 
-![WordPress homepage](screenshots/wordpress-homepage.png)
+![WordPress homepage](https://github.com/user-attachments/assets/1931db80-c6b0-4c18-b0b4-403d68e02e63)
 
 ## Lessons learned
 
@@ -138,4 +138,5 @@ terraform destroy
 ```
 
 Confirm the plan before approving. Do not commit `.tfstate` files, `.terraform/`, local `terraform.tfvars`, credentials or secrets. The screenshots show a temporary lab environment; the displayed IP address may no longer be active.
+
 
